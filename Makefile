@@ -2,7 +2,7 @@ ASM = nasm
 
 ASMFLAGS = -f macho64
 
-OBJECTS = ft_write.o ft_strlen.o ft_strcpy.o ft_strcmp.o ft_strdup.o
+OBJECTS = ft_write.o ft_strlen.o ft_strcpy.o ft_strcmp.o
 
 NAME = libasm.a
 TEST_BINARY = test
