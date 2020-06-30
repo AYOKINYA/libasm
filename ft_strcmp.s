@@ -1,15 +1,40 @@
-section .text
-    global _start
+;int		ft_strcmp(const char *s1, const char *s2)
+;{
+;	while (*s1 && *s2 && *s1 == *s2)
+;	{
+;		s1++;
+;		s2++;
+;	}
+;	return ((unsigned char)*s1 - (unsigned char)*s2);
+;}
 
-mememp : 
-	mov rex , rdx
-	repe cmpsb ;compare until end or difference
-	cmp rex , 0
-	jz equal ;reached the end
-	movzx eax , byte [rdi - 1]
-	movzx ecx , byte [rsi -1]
-	sub rax , rex
-	ret
-equal :
-	xor eax , eax
-ret 
+section .text
+global _ft_strcmp
+
+_ft_strcmp:
+
+  xor   rcx, rcx       ; set rcx = 0
+  xor	  al, al
+  jmp _strcmp_loop
+
+_strcmp_loop:
+
+  cmp   BYTE[rsi + rcx], 0  ; null byte yet?  
+  je    _strcmp_null   ; yes, get out
+
+  cmp   BYTE[rdi + rcx], 0  ; null byte yet?  
+  je    _strcmp_null   ; yes, get out
+
+  mov   al, BYTE[rdi + rcx]
+  cmp   al, BYTE[rsi + rcx]  ; null byte yet?  
+  jne    _strcmp_null   ; yes, get out
+
+  inc   rcx            ; ++i
+  jmp   _strcmp_loop   ; process again
+
+_strcmp_null:
+
+  mov	al, BYTE[rdi + rcx]
+  sub	al, BYTE[rsi + rcx]
+  movsx   rax, al      ; rax = dl for return, movsx for signed result and extension of dl
+  ret                  ; get out and return
