@@ -15,13 +15,11 @@ TEST_CFLAGS = -Wall -Wextra -Werror
 %.o: %.s
 	$(ASM) $(ASMFLAGS) -o $@ $<
 
-$(NAME): $(OBJECTS)
+$(NAME): $(OBJECTS) $(TEST_FILES)
 	ar rc $(NAME) $(OBJECTS)
-
-all: $(NAME) $(TEST_BINARY)
-
-$(TEST_BINARY): $(TEST_FILES)
 	$(TEST_CC) $(TEST_CFLAGS) $(TEST_FILES) $(NAME) -o $(TEST_BINARY)
+
+all: $(NAME)
 
 clean:
 	rm -f $(OBJECTS)
