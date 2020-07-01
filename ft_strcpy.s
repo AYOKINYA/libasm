@@ -1,35 +1,24 @@
-;char *ft_strcpy(char *dest, const char *src)
-;{
-;	int i = 0;
-;
-;	while (src[i] != 0)
-;	{
-;		dest[i] = src[i];
-;		i++;
-;	}
-;	dest[i] = src[i];
-;	return (dest);
-;}
-
 section .text
 global _ft_strcpy
 
 _ft_strcpy:
 
   xor   rcx, rcx       ; set rcx = 0
-  xor	r9, r9
+  xor   rdx, rdx
 
 _strcpy_loop:
 
   cmp   BYTE[rsi + rcx], 0  ; null byte yet?  
   je    _strcpy_null   ; yes, get out
 
-  mov	al, BYTE[rsi + rcx]
-  mov	BYTE[rdi + rcx], al
+  mov	dl, BYTE[rsi + rcx]
+  mov	BYTE[rdi + rcx], dl
   inc   rcx            ; ++i
   jmp   _strcpy_loop   ; process again
 
 _strcpy_null:
 
+  mov   dl, 0
+  mov   BYTE[rdi + rcx], dl
   mov   rax, rdi       ; rax = rdi for return 
   ret                  ; get out

@@ -10,9 +10,7 @@ _ft_read:
 
 _err:
          mov r9, rax
-         push rbp
          call ___error
-         pop rbp
          mov [rax], r9
          mov rax, -1
          ret
