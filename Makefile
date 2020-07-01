@@ -18,7 +18,7 @@ TEST_CFLAGS = -Wall -Wextra -Werror
 $(NAME): $(OBJECTS)
 	ar rc $(NAME) $(OBJECTS)
 
-all: $(NAME)
+all: $(NAME) $(TEST_BINARY)
 
 $(TEST_BINARY): $(TEST_FILES)
 	$(TEST_CC) $(TEST_CFLAGS) $(TEST_FILES) $(NAME) -o $(TEST_BINARY)
@@ -28,5 +28,6 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(TEST_BINARY)
 
 re: fclean all
